@@ -1,9 +1,12 @@
 package com.project.chaekbang.controller;
 
+import com.project.chaekbang.domain.User;
 import com.project.chaekbang.dto.user.CreateUserDto;
 import com.project.chaekbang.dto.user.LoginUserDto;
+import com.project.chaekbang.dto.user.UserResponseDto;
 import com.project.chaekbang.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -30,7 +33,7 @@ public class UserController {
 
 
     @PostMapping("/signup")
-    public Long signup(@RequestBody CreateUserDto createUserDto) {
+    public ResponseEntity<UserResponseDto> signup(@RequestBody CreateUserDto createUserDto) {
         return userService.signup(createUserDto);
     }
 

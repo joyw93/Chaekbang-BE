@@ -1,5 +1,6 @@
 package com.project.chaekbang.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -22,6 +23,7 @@ public class User {
 
     private String password;
 
+    @JsonIgnore
     @OneToMany(mappedBy="user")
     private List<UserBook> userBooks = new ArrayList<>();
 }

@@ -3,9 +3,11 @@ package com.project.chaekbang.service;
 import com.project.chaekbang.domain.User;
 import com.project.chaekbang.dto.user.CreateUserDto;
 import com.project.chaekbang.dto.user.LoginUserDto;
+import com.project.chaekbang.dto.user.UserResponseDto;
 import com.project.chaekbang.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
@@ -21,14 +23,18 @@ public class UserService {
 
     private final UserRepository userRepository;
 
-    public Long signup(CreateUserDto createUserDto) {
+    public ResponseEntity<UserResponseDto> signup(CreateUserDto createUserDto) {
         User user = new User();
         user.setEmail(createUserDto.getEmail());
         user.setName(createUserDto.getEmail());
         user.setPassword(createUserDto.getPassword());
-
         userRepository.save(user);
-        return user.getId();
+
+        UserResponseDto userResponseDto = new UserResponseDto();
+        userResponseDto.setEmail(user.getEmail());
+        userResponseDto.setName(user.getName());
+
+        return ResponseEntity.ok(userResponseDto);
     }
 
     public Long login(HttpServletRequest request, LoginUserDto loginUserDto) throws Exception {
